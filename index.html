@@ -1,977 +1,639 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
-
-<title>I SPARES ADMIN</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>I SPARES Admin</title>
 
 <style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
+*{box-sizing:border-box}
 body{
-    font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Arial,
-    sans-serif;
-
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
     background:#f5f5f7;
     color:#111;
 }
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
 
-
-/* HEADER */
-
-header{
-
-    position:sticky;
-    top:0;
-    z-index:100;
-
+.header{
     background:#000;
     color:#fff;
-
-    padding:16px 5%;
-
+    padding:18px 22px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-
 }
-
 .logo{
-
     font-size:22px;
     font-weight:900;
     letter-spacing:3px;
-
 }
-
-.admin-label{
-
-    font-size:12px;
-    color:#aaa;
-    letter-spacing:1px;
-
-}
-
-
-/* LAYOUT */
+.header small{color:#aaa}
 
 .container{
-
-    max-width:1200px;
+    max-width:1400px;
     margin:auto;
-
-    padding:30px 5%;
-
+    padding:20px;
 }
 
-
-/* DASHBOARD */
-
-.dashboard{
-
+.stats{
     display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(180px,1fr));
-
-    gap:15px;
-
-    margin-bottom:30px;
-
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    margin-bottom:20px;
 }
-
-
 .stat{
-
     background:#fff;
-
-    border-radius:18px;
-
-    padding:22px;
-
+    padding:18px;
+    border-radius:16px;
     border:1px solid #e5e5e5;
-
 }
-
-
-.stat-title{
-
+.stat span{
     color:#777;
-
     font-size:13px;
-
-    margin-bottom:8px;
-
+}
+.stat strong{
+    display:block;
+    font-size:27px;
+    margin-top:7px;
 }
 
-
-.stat-number{
-
-    font-size:30px;
-
-    font-weight:800;
-
+.nav{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+.nav button{
+    background:#fff;
+    border:1px solid #ddd;
+    padding:10px 15px;
+    border-radius:9px;
+}
+.nav button.active{
+    background:#000;
+    color:#fff;
 }
 
-
-/* MAIN CARD */
+.section{display:none}
+.section.active{display:block}
 
 .card{
-
     background:#fff;
-
-    border-radius:20px;
-
-    padding:25px;
-
     border:1px solid #e5e5e5;
-
-    margin-bottom:25px;
-
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
 }
 
-
-/* TOP BAR */
-
-.topbar{
-
+.top{
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
-    gap:15px;
-
-    margin-bottom:20px;
-
+    gap:12px;
     flex-wrap:wrap;
-
+    margin-bottom:18px;
 }
-
-
-.topbar h1{
-
-    font-size:28px;
-
-}
-
 
 .search{
-
-    padding:11px 15px;
-
+    padding:10px 13px;
     border:1px solid #ddd;
-
-    border-radius:25px;
-
-    width:250px;
-
-    outline:none;
-
+    border-radius:9px;
+    width:270px;
 }
-
-
-/* BUTTONS */
-
-button{
-
-    border:none;
-
-    cursor:pointer;
-
-    font-weight:600;
-
-}
-
 
 .primary{
-
     background:#000;
-
     color:#fff;
-
-    padding:11px 18px;
-
-    border-radius:10px;
-
-}
-
-
-.secondary{
-
-    background:#eee;
-
-    color:#111;
-
+    border:0;
     padding:10px 16px;
-
-    border-radius:10px;
-
+    border-radius:9px;
+}
+.secondary{
+    background:#eee;
+    border:0;
+    padding:10px 16px;
+    border-radius:9px;
 }
 
-
-/* PRODUCT TABLE */
-
-.table-wrapper{
-
-    overflow-x:auto;
-
-}
-
+.table-wrap{overflow-x:auto}
 
 table{
-
     width:100%;
-
+    min-width:1050px;
     border-collapse:collapse;
-
-    min-width:850px;
-
 }
-
-
 th{
-
-    text-align:left;
-
     background:#f5f5f7;
-
-    padding:13px;
-
+    text-align:left;
+    padding:11px;
     font-size:13px;
-
 }
-
-
 td{
-
-    padding:13px;
-
+    padding:11px;
     border-bottom:1px solid #eee;
-
-    font-size:14px;
-
-    vertical-align:middle;
-
+    font-size:13px;
 }
-
 
 .product-img{
-
     width:55px;
-
     height:55px;
-
+    object-fit:cover;
     border-radius:10px;
-
     background:#eee;
+}
 
+.badge{
+    display:inline-block;
+    padding:4px 8px;
+    border-radius:20px;
+    background:#eee;
+    font-size:12px;
+}
+.green{background:#dff7e7;color:#08752e}
+.orange{background:#fff0d5;color:#9a5b00}
+.red{background:#ffe1e1;color:#a00000}
+
+.actions{
     display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    overflow:hidden;
-
+    gap:6px;
 }
-
-
-.product-img img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:contain;
-
-}
-
-
-.stock-good{
-
-    color:#168044;
-
-    font-weight:bold;
-
-}
-
-
-.stock-low{
-
-    color:#d98200;
-
-    font-weight:bold;
-
-}
-
-
-.stock-out{
-
-    color:#d00;
-
-    font-weight:bold;
-
-}
-
-
-.action-buttons{
-
-    display:flex;
-
-    gap:7px;
-
-}
-
-
 .edit{
-
+    border:0;
     background:#eee;
-
-    padding:7px 11px;
-
+    padding:7px 10px;
     border-radius:7px;
-
 }
-
-
 .delete{
-
-    background:#ffe5e5;
-
-    color:#d00;
-
-    padding:7px 11px;
-
+    border:0;
+    background:#ffe1e1;
+    color:#a00000;
+    padding:7px 10px;
     border-radius:7px;
-
 }
-
-
-/* MODAL */
 
 .modal{
-
     display:none;
-
     position:fixed;
-
     inset:0;
-
     background:#0008;
-
-    z-index:500;
-
+    z-index:999;
     align-items:center;
-
     justify-content:center;
-
-    padding:20px;
-
+    padding:15px;
 }
-
-
-.modal.active{
-
-    display:flex;
-
-}
-
+.modal.show{display:flex}
 
 .modal-box{
-
-    width:600px;
-
+    width:700px;
     max-width:100%;
-
-    max-height:90vh;
-
+    max-height:92vh;
     overflow:auto;
-
     background:#fff;
-
-    border-radius:22px;
-
-    padding:25px;
-
+    border-radius:20px;
+    padding:22px;
 }
 
-
-.modal-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:20px;
-
-}
-
-
-.close{
-
-    width:35px;
-
-    height:35px;
-
-    border-radius:50%;
-
-    background:#eee;
-
-}
-
-
-.field{
-
-    margin-bottom:15px;
-
-}
-
-
+.field{margin-bottom:14px}
 .field label{
-
     display:block;
-
     font-size:13px;
-
     color:#555;
-
-    margin-bottom:6px;
-
+    margin-bottom:5px;
 }
-
-
 .field input,
-
-.field textarea,
-
-.field select{
-
-    width:100%;
-
-    padding:11px;
-
-    border:1px solid #ddd;
-
-    border-radius:9px;
-
-    outline:none;
-
-    font-family:inherit;
-
-}
-
-
+.field select,
 .field textarea{
-
-    min-height:100px;
-
-    resize:vertical;
-
+    width:100%;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:8px;
 }
+.field textarea{min-height:90px}
 
-
-.form-grid{
-
+.grid{
     display:grid;
-
-    grid-template-columns:
-    1fr 1fr;
-
+    grid-template-columns:1fr 1fr;
     gap:12px;
-
 }
-
 
 .preview{
-
-    width:120px;
-
-    height:120px;
-
-    background:#f1f1f1;
-
-    border-radius:15px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    overflow:hidden;
-
-    margin-bottom:10px;
-
+    width:140px;
+    height:140px;
+    border-radius:14px;
+    object-fit:cover;
+    background:#eee;
+    display:block;
+    margin-top:10px;
 }
 
-
-.preview img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:contain;
-
-}
-
-
-.modal-buttons{
-
+.modal-actions{
     display:flex;
-
     gap:10px;
-
-    margin-top:20px;
-
+    margin-top:18px;
 }
-
-
-.modal-buttons button{
-
+.modal-actions button{
     flex:1;
-
+    padding:12px;
+    border-radius:9px;
+    border:0;
 }
 
-
-/* MOBILE */
-
-@media(max-width:650px){
-
-    .container{
-
-        padding:20px 12px;
-
-    }
-
-    .form-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .search{
-
-        width:100%;
-
-    }
-
-    .topbar{
-
-        align-items:stretch;
-
-    }
-
-    .topbar button{
-
-        width:100%;
-
-    }
-
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
 }
 
+.category-card{
+    border:1px solid #ddd;
+    border-radius:15px;
+    overflow:hidden;
+    background:#fff;
+}
+.category-card img{
+    width:100%;
+    height:130px;
+    object-fit:cover;
+    background:#eee;
+}
+.category-card .cat-body{
+    padding:12px;
+}
+.category-card button{
+    width:100%;
+    margin-top:8px;
+}
+
+.order{
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:15px;
+    margin-bottom:12px;
+}
+.order-head{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+}
+.address{
+    background:#f7f7f7;
+    padding:12px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.empty{
+    text-align:center;
+    padding:35px;
+    color:#777;
+}
+
+@media(max-width:850px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .category-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:550px){
+    .container{padding:12px}
+    .grid{grid-template-columns:1fr}
+    .category-grid{grid-template-columns:1fr 1fr}
+    .search{width:100%}
+}
 </style>
-
 </head>
-
 
 <body>
 
-
-<header>
-
-<div class="logo">
-I SPARES
-</div>
-
-<div class="admin-label">
-ADMIN PANEL
-</div>
-
+<header class="header">
+    <div class="logo">I SPARES</div>
+    <small>ADMIN PANEL</small>
 </header>
 
+<div class="container">
 
-<main class="container">
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+<span>Products</span>
+<strong id="totalProducts">0</strong>
+</div>
+
+<div class="stat">
+<span>Total Stock</span>
+<strong id="totalStock">0</strong>
+</div>
+
+<div class="stat">
+<span>Orders</span>
+<strong id="totalOrders">0</strong>
+</div>
+
+<div class="stat">
+<span>Pending Payment</span>
+<strong id="pendingPayment">0</strong>
+</div>
+
+<div class="stat">
+<span>Pending Delivery</span>
+<strong id="pendingDelivery">0</strong>
+</div>
+
+</div>
+
+
+<!-- NAV -->
+
+<div class="nav">
+
+<button class="active" onclick="openSection('dashboard',this)">
+Dashboard
+</button>
+
+<button onclick="openSection('categories',this)">
+Categories
+</button>
+
+<button onclick="openSection('products',this)">
+Products
+</button>
+
+<button onclick="openSection('orders',this)">
+Orders
+</button>
+
+<button onclick="openSection('customers',this)">
+Customers
+</button>
+
+</div>
 
 
 <!-- DASHBOARD -->
 
-<div class="dashboard">
+<section id="dashboard" class="section active">
 
+<div class="card">
 
-<div class="stat">
+<h2>I SPARES Admin</h2>
 
-<div class="stat-title">
-TOTAL PRODUCTS
-</div>
+<p>
+Manage your products, images, prices, stock and orders.
+</p>
 
-<div
-class="stat-number"
-id="totalProducts">
-0
-</div>
+<br>
 
-</div>
-
-
-<div class="stat">
-
-<div class="stat-title">
-TOTAL STOCK
-</div>
-
-<div
-class="stat-number"
-id="totalStock">
-0
-</div>
+<p>
+For now the data is saved in this browser.
+The next stage will connect this to the shared database.
+</p>
 
 </div>
 
+</section>
 
-<div class="stat">
 
-<div class="stat-title">
-LOW STOCK
+<!-- CATEGORIES -->
+
+<section id="categories" class="section">
+
+<div class="card">
+
+<div class="top">
+<h2>Website Categories</h2>
+
+<button class="primary" onclick="addCategory()">
++ Add Category
+</button>
 </div>
 
-<div
-class="stat-number"
-id="lowStock">
-0
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-title">
-OUT OF STOCK
-</div>
-
-<div
-class="stat-number"
-id="outStock">
-0
-</div>
+<div id="categoryGrid" class="category-grid"></div>
 
 </div>
 
+<div class="card">
+
+<h3>Display Qualities</h3>
+
+<p style="color:#777;margin:8px 0 15px">
+Each quality can have its own image.
+</p>
+
+<div id="qualityGrid" class="category-grid"></div>
 
 </div>
+
+</section>
 
 
 <!-- PRODUCTS -->
 
+<section id="products" class="section">
+
 <div class="card">
 
+<div class="top">
 
-<div class="topbar">
+<h2>Products</h2>
 
-<h1>
-Products
-</h1>
+<div>
 
-
-<button
-class="primary"
-onclick="openAddProduct()"
+<input
+class="search"
+id="search"
+placeholder="Search model, product, colour..."
+oninput="renderProducts()"
 >
+
+<button class="primary" onclick="openProduct()">
 + Add Product
 </button>
 
+</div>
 
 </div>
 
-
-<input
-
-class="search"
-
-id="search"
-
-placeholder="Search products..."
-
-oninput="renderProducts()"
-
->
-
-
-<br><br>
-
-
-<div class="table-wrapper">
+<div class="table-wrap">
 
 <table>
 
 <thead>
-
 <tr>
-
-<th>
-Photo
-</th>
-
-<th>
-Product
-</th>
-
-<th>
-Category
-</th>
-
-<th>
-Model
-</th>
-
-<th>
-Quality
-</th>
-
-<th>
-Colour
-</th>
-
-<th>
-Price
-</th>
-
-<th>
-Stock
-</th>
-
-<th>
-Actions
-</th>
-
+<th>Image</th>
+<th>Product</th>
+<th>Category</th>
+<th>Model</th>
+<th>Quality</th>
+<th>Colour</th>
+<th>Price</th>
+<th>Stock</th>
+<th>Actions</th>
 </tr>
-
 </thead>
 
-
-<tbody
-id="productTable">
-</tbody>
+<tbody id="productTable"></tbody>
 
 </table>
 
 </div>
 
+</div>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section id="orders" class="section">
+
+<div class="card">
+
+<div class="top">
+<h2>Orders</h2>
+
+<button class="secondary" onclick="renderOrders()">
+Refresh
+</button>
+</div>
+
+<div id="ordersList"></div>
+
+</div>
+
+</section>
+
+
+<!-- CUSTOMERS -->
+
+<section id="customers" class="section">
+
+<div class="card">
+
+<div class="top">
+
+<h2>Customers</h2>
+
+<input
+class="search"
+id="customerSearch"
+placeholder="Search customer..."
+oninput="renderCustomers()"
+>
+
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Name</th>
+<th>Phone</th>
+<th>Address</th>
+<th>City</th>
+<th>State</th>
+<th>PIN</th>
+</tr>
+</thead>
+
+<tbody id="customerTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
 
 </div>
 
 
-</main>
+<!-- PRODUCT MODAL -->
 
-
-<!-- ADD / EDIT MODAL -->
-
-<div
-class="modal"
-id="productModal"
->
-
+<div id="productModal" class="modal">
 
 <div class="modal-box">
 
+<h2 id="modalTitle">Add Product</h2>
 
-<div class="modal-header">
-
-<h2 id="modalTitle">
-Add Product
-</h2>
-
-
-<button
-class="close"
-onclick="closeProductModal()"
->
-✕
-</button>
-
-</div>
-
+<br>
 
 <div class="field">
 
-<label>
-Product Name
-</label>
+<label>Product Name</label>
 
-<input
-id="productName"
-placeholder="Example: iPhone 13 Pro Max Display"
->
+<input id="pName"
+placeholder="Example: iPhone 13 Pro Max DD Display">
 
 </div>
 
-
-<div class="form-grid">
-
+<div class="grid">
 
 <div class="field">
 
-<label>
-Category
-</label>
+<label>Category</label>
 
-<select id="productCategory">
+<select id="pCategory">
 
-<option>
-Displays
-</option>
-
-<option>
-Batteries
-</option>
-
-<option>
-Back Glass
-</option>
-
-<option>
-Housing
-</option>
-
-<option>
-Ringer
-</option>
-
-<option>
-Earpiece
-</option>
-
-<option>
-Charging Strip
-</option>
-
-<option>
-iPad Touch
-</option>
-
-<option>
-Watch Touch
-</option>
-
-<option>
-Watch OCA
-</option>
-
-<option>
-iPhone OCA
-</option>
-
-<option>
-Apple Accessories
-</option>
-
-<option>
-Samsung Accessories
-</option>
-
-<option>
-Falcon 530
-</option>
+<option>Displays</option>
+<option>Batteries</option>
+<option>Back Glass</option>
+<option>Housing</option>
+<option>Cameras</option>
+<option>Ringer</option>
+<option>Earpiece</option>
+<option>Charging Strip</option>
+<option>iPad Touch</option>
+<option>Watch Touch</option>
+<option>Watch OCA</option>
+<option>iPhone OCA</option>
+<option>Apple Accessories</option>
+<option>Samsung Accessories</option>
+<option>Falcon 530</option>
 
 </select>
 
 </div>
 
+<div class="field">
+
+<label>Model</label>
+<input id="pModel" placeholder="iPhone 13 Pro Max">
+</div>
 
 <div class="field">
 
-<label>
-Model
-</label>
-
-<input
-id="productModel"
-placeholder="Example: iPhone 13 Pro Max"
->
-
+<label>Quality</label>
+<input id="pQuality" placeholder="DD / One to One / A++">
 </div>
-
 
 <div class="field">
 
-<label>
-Quality
-</label>
-
-<input
-id="productQuality"
-placeholder="Example: DD / A++ / Genuine"
->
-
+<label>Colour</label>
+<input id="pColour" placeholder="Natural Titanium">
 </div>
-
 
 <div class="field">
 
-<label>
-Colour
-</label>
-
-<input
-id="productColour"
-placeholder="Example: Natural Titanium"
->
-
+<label>Price ₹</label>
+<input id="pPrice" type="number">
 </div>
-
 
 <div class="field">
 
-<label>
-Price ₹
-</label>
-
-<input
-type="number"
-id="productPrice"
-placeholder="2500"
->
-
-</div>
-
-
-<div class="field">
-
-<label>
-Stock
-</label>
-
-<input
-type="number"
-id="productStock"
-placeholder="2"
->
-
+<label>Stock</label>
+<input id="pStock" type="number" value="2">
 </div>
 
 </div>
 
+
+<!-- IMAGE URL -->
 
 <div class="field">
 
@@ -980,63 +642,102 @@ Product Image URL
 </label>
 
 <input
-id="productImage"
-placeholder="https://..."
-oninput="previewImage()"
+id="pImage"
+placeholder="Paste direct image URL or Google Drive link"
+oninput="previewProductImage()"
 >
-
-</div>
-
-
-<div class="preview">
 
 <img
 id="imagePreview"
+class="preview"
 style="display:none"
 >
 
-<span id="previewText">
-No Image
-</span>
+<small style="color:#777">
+You can paste a direct image URL or a Google Drive sharing link.
+</small>
 
 </div>
 
 
 <div class="field">
 
-<label>
-Description
-</label>
+<label>Description</label>
 
 <textarea
-id="productDescription"
+id="pDescription"
 placeholder="Product description..."
 ></textarea>
 
 </div>
 
 
-<div class="modal-buttons">
-
+<div class="modal-actions">
 
 <button
 class="secondary"
-onclick="closeProductModal()"
->
+onclick="closeProduct()">
 Cancel
 </button>
 
-
 <button
 class="primary"
-onclick="saveProduct()"
->
+onclick="saveProduct()">
 Save Product
 </button>
 
+</div>
 
 </div>
 
+</div>
+
+
+<!-- IMAGE MODAL -->
+
+<div id="imageModal" class="modal">
+
+<div class="modal-box">
+
+<h2 id="imageTitle">
+Change Image
+</h2>
+
+<br>
+
+<div class="field">
+
+<label>Image URL</label>
+
+<input
+id="categoryImageUrl"
+placeholder="Paste Google Drive or direct image URL"
+oninput="previewCategoryImage()"
+>
+
+<img
+id="categoryPreview"
+class="preview"
+style="display:none"
+>
+
+</div>
+
+<div class="modal-actions">
+
+<button
+class="secondary"
+onclick="closeImageModal()">
+Cancel
+</button>
+
+<button
+class="primary"
+onclick="saveCategoryImage()">
+Save Image
+</button>
+
+</div>
 
 </div>
 
@@ -1044,46 +745,788 @@ Save Product
 
 
 <script>
-  /* =========================================================
-   I SPARES ADMIN — PRODUCT DATABASE
-   ========================================================= */
+
+/* =====================================================
+   I SPARES ADMIN
+   ===================================================== */
 
 let products = [];
+let orders = [];
+let customers = [];
 
-let editingProductId = null;
+let editingId = null;
+let editingImageType = null;
+let editingImageName = null;
 
 
-/* =========================================================
-   LOAD PRODUCTS
-   ========================================================= */
+/* =====================================================
+   CATEGORIES
+   ===================================================== */
 
-function loadProducts(){
+const categoryNames = [
 
-    const saved =
-        localStorage.getItem("iSparesProducts");
+"Displays",
+"Batteries",
+"Back Glass",
+"Housing",
+"Cameras",
+"Ringer",
+"Earpiece",
+"Charging Strip",
+"iPad Touch",
+"Watch Touch",
+"Watch OCA",
+"iPhone OCA",
+"Apple Accessories",
+"Samsung Accessories",
+"Falcon 530"
 
-    if(saved){
+];
 
-        products = JSON.parse(saved);
+const displayQualities = [
+"Removed",
+"Glass Change",
+"One to One",
+"DD"
+];
+
+
+/* =====================================================
+   MODEL LIST
+   ===================================================== */
+
+const models = [
+
+"iPhone 7",
+"iPhone 8",
+"iPhone 8 Plus",
+"iPhone X",
+"iPhone XR",
+"iPhone XS",
+"iPhone XS Max",
+
+"iPhone 11",
+"iPhone 11 Pro",
+"iPhone 11 Pro Max",
+
+"iPhone 12 mini",
+"iPhone 12",
+"iPhone 12 Pro",
+"iPhone 12 Pro Max",
+
+"iPhone 13 mini",
+"iPhone 13",
+"iPhone 13 Pro",
+"iPhone 13 Pro Max",
+
+"iPhone 14",
+"iPhone 14 Plus",
+"iPhone 14 Pro",
+"iPhone 14 Pro Max",
+
+"iPhone 15",
+"iPhone 15 Plus",
+"iPhone 15 Pro",
+"iPhone 15 Pro Max",
+
+"iPhone 16",
+"iPhone 16 Plus",
+"iPhone 16 Pro",
+"iPhone 16 Pro Max",
+
+"iPhone 17",
+"iPhone 17 Pro",
+"iPhone 17 Pro Max"
+
+];
+
+
+/* =====================================================
+   COLOURS
+   ===================================================== */
+
+const colours = {
+
+"iPhone 8":
+["Silver","Space Gray","Gold","Product Red"],
+
+"iPhone 8 Plus":
+["Silver","Space Gray","Gold","Product Red"],
+
+"iPhone X":
+["Silver","Space Gray"],
+
+"iPhone XR":
+["Black","White","Yellow","Coral","Blue","Product Red"],
+
+"iPhone XS":
+["Silver","Space Gray","Gold"],
+
+"iPhone XS Max":
+["Silver","Space Gray","Gold"],
+
+"iPhone 11":
+["Black","White","Green","Yellow","Purple","Product Red"],
+
+"iPhone 11 Pro":
+["Space Gray","Silver","Gold","Midnight Green"],
+
+"iPhone 11 Pro Max":
+["Space Gray","Silver","Gold","Midnight Green"],
+
+"iPhone 12 mini":
+["Black","White","Product Red","Green","Blue","Purple"],
+
+"iPhone 12":
+["Black","White","Product Red","Green","Blue","Purple"],
+
+"iPhone 12 Pro":
+["Silver","Graphite","Gold","Pacific Blue"],
+
+"iPhone 12 Pro Max":
+["Silver","Graphite","Gold","Pacific Blue"],
+
+"iPhone 13 mini":
+["Midnight","Starlight","Product Red","Blue","Pink","Green"],
+
+"iPhone 13":
+["Midnight","Starlight","Product Red","Blue","Pink","Green"],
+
+"iPhone 13 Pro":
+["Graphite","Gold","Silver","Sierra Blue","Alpine Green"],
+
+"iPhone 13 Pro Max":
+["Graphite","Gold","Silver","Sierra Blue","Alpine Green"],
+
+"iPhone 14":
+["Midnight","Starlight","Blue","Purple","Yellow","Product Red"],
+
+"iPhone 14 Plus":
+["Midnight","Starlight","Blue","Purple","Yellow","Product Red"],
+
+"iPhone 14 Pro":
+["Space Black","Silver","Gold","Deep Purple"],
+
+"iPhone 14 Pro Max":
+["Space Black","Silver","Gold","Deep Purple"],
+
+"iPhone 15":
+["Black","Green","Yellow","Pink","Blue"],
+
+"iPhone 15 Plus":
+["Black","Green","Yellow","Pink","Blue"],
+
+"iPhone 15 Pro":
+["Black Titanium","White Titanium","Blue Titanium","Natural Titanium"],
+
+"iPhone 15 Pro Max":
+["Black Titanium","White Titanium","Blue Titanium","Natural Titanium"],
+
+"iPhone 16":
+["Black","White","Pink","Teal","Ultramarine"],
+
+"iPhone 16 Plus":
+["Black","White","Pink","Teal","Ultramarine"],
+
+"iPhone 16 Pro":
+["Black Titanium","White Titanium","Natural Titanium","Desert Titanium"],
+
+"iPhone 16 Pro Max":
+["Black Titanium","White Titanium","Natural Titanium","Desert Titanium"],
+
+"iPhone 17":
+["Black","White","Blue"],
+
+"iPhone 17 Pro":
+["Black","Silver","Cosmic Orange"],
+
+"iPhone 17 Pro Max":
+["Black","Silver","Cosmic Orange"]
+
+};
+
+
+/* =====================================================
+   IMAGE URL CONVERTER
+   ===================================================== */
+
+function convertImageUrl(url){
+
+    if(!url) return "";
+
+    url = url.trim();
+
+    /*
+    Google Drive:
+    https://drive.google.com/file/d/FILE_ID/view
+    */
+
+    let match =
+    url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+
+    if(match){
+
+        return
+        "https://drive.google.com/uc?export=view&id="
+        +match[1];
 
     }
 
-    else{
+    /*
+    Drive open?id=FILE_ID
+    */
 
-        products = [];
+    match =
+    url.match(/[?&]id=([^&]+)/);
+
+    if(
+        url.includes("drive.google.com") &&
+        match
+    ){
+
+        return
+        "https://drive.google.com/uc?export=view&id="
+        +match[1];
 
     }
 
-    renderProducts();
-
-    updateDashboard();
+    return url;
 
 }
 
 
-/* =========================================================
-   SAVE PRODUCTS
-   ========================================================= */
+/* =====================================================
+   CATEGORY IMAGE DATA
+   ===================================================== */
+
+function getCategoryImages(){
+
+    return JSON.parse(
+        localStorage.getItem("iSparesCategoryImages")
+        || "{}"
+    );
+
+}
+
+function saveCategoryImages(data){
+
+    localStorage.setItem(
+        "iSparesCategoryImages",
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =====================================================
+   CATEGORY DISPLAY
+   ===================================================== */
+
+function renderCategories(){
+
+    const data = getCategoryImages();
+
+    const grid =
+    document.getElementById("categoryGrid");
+
+    grid.innerHTML="";
+
+    categoryNames.forEach(category=>{
+
+        const image =
+        data[category] || "";
+
+        grid.innerHTML += `
+
+        <div class="category-card">
+
+        ${
+            image
+            ?
+            `<img src="${escapeHTML(convertImageUrl(image))}"
+            onerror="this.style.display='none'">`
+            :
+            `<div style="height:130px;background:#eee;
+            display:flex;align-items:center;
+            justify-content:center;color:#888">
+            No Image
+            </div>`
+        }
+
+        <div class="cat-body">
+
+        <b>${escapeHTML(category)}</b>
+
+        <button
+        class="secondary"
+        onclick="changeCategoryImage('${escapeHTML(category)}')">
+
+        🖼️ Change Image
+
+        </button>
+
+        </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+function renderQualities(){
+
+    const data = getCategoryImages();
+
+    const grid =
+    document.getElementById("qualityGrid");
+
+    grid.innerHTML="";
+
+    displayQualities.forEach(q=>{
+
+        const key="Display / "+q;
+
+        const image=data[key]||"";
+
+        grid.innerHTML += `
+
+        <div class="category-card">
+
+        ${
+            image
+            ?
+            `<img src="${escapeHTML(convertImageUrl(image))}"
+            onerror="this.style.display='none'">`
+            :
+            `<div style="height:130px;background:#eee;
+            display:flex;align-items:center;
+            justify-content:center;color:#888">
+            No Image
+            </div>`
+        }
+
+        <div class="cat-body">
+
+        <b>${escapeHTML(q)}</b>
+
+        <button
+        class="secondary"
+        onclick="changeQualityImage('${escapeHTML(q)}')">
+
+        🖼️ Change Image
+
+        </button>
+
+        </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   IMAGE MODAL
+   ===================================================== */
+
+function changeCategoryImage(name){
+
+    editingImageType="category";
+    editingImageName=name;
+
+    const data=getCategoryImages();
+
+    document.getElementById("imageTitle")
+    .innerText=name+" Image";
+
+    document.getElementById("categoryImageUrl")
+    .value=data[name]||"";
+
+    previewCategoryImage();
+
+    document.getElementById("imageModal")
+    .classList.add("show");
+
+}
+
+
+function changeQualityImage(name){
+
+    editingImageType="quality";
+    editingImageName="Display / "+name;
+
+    const data=getCategoryImages();
+
+    document.getElementById("imageTitle")
+    .innerText=name+" Image";
+
+    document.getElementById("categoryImageUrl")
+    .value=data[editingImageName]||"";
+
+    previewCategoryImage();
+
+    document.getElementById("imageModal")
+    .classList.add("show");
+
+}
+
+
+function previewCategoryImage(){
+
+    const url =
+    convertImageUrl(
+        document.getElementById("categoryImageUrl").value
+    );
+
+    const img =
+    document.getElementById("categoryPreview");
+
+    if(!url){
+
+        img.style.display="none";
+        return;
+
+    }
+
+    img.src=url;
+    img.style.display="block";
+
+}
+
+
+function saveCategoryImage(){
+
+    const data=getCategoryImages();
+
+    data[editingImageName] =
+    document.getElementById("categoryImageUrl").value.trim();
+
+    saveCategoryImages(data);
+
+    closeImageModal();
+
+    renderCategories();
+    renderQualities();
+
+}
+
+
+function closeImageModal(){
+
+    document.getElementById("imageModal")
+    .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   INITIAL PRODUCTS
+   ===================================================== */
+
+function initialProducts(){
+
+    const list=[];
+
+    let id=1;
+
+
+    function add(
+        category,
+        name,
+        model="",
+        quality="",
+        colour="",
+        price=0
+    ){
+
+        list.push({
+
+            id:"product-"+id++,
+
+            name,
+            category,
+            model,
+            quality,
+            colour,
+
+            price,
+            stock:2,
+
+            image:"",
+            description:""
+
+        });
+
+    }
+
+
+    /* DISPLAYS */
+
+    displayQualities.forEach(q=>{
+
+        models.forEach(model=>{
+
+            add(
+                "Displays",
+                model+" Display — "+q,
+                model,
+                q,
+                "",
+                0
+            );
+
+        });
+
+    });
+
+
+    /* BATTERIES */
+
+    models.forEach(model=>{
+
+        const n=
+        parseInt(model.match(/\d+/)?.[0]||0);
+
+        if(n>=12 && n<=15){
+
+            add(
+                "Batteries",
+                model+" Battery — Used",
+                model,
+                "Used",
+                "",
+                0
+            );
+
+            add(
+                "Batteries",
+                model+" Battery — Genuine",
+                model,
+                "Genuine",
+                "",
+                0
+            );
+
+        }else{
+
+            add(
+                "Batteries",
+                model+" Battery",
+                model,
+                "Standard",
+                "",
+                0
+            );
+
+        }
+
+    });
+
+
+    /* BACK GLASS + HOUSING */
+
+    models.forEach(model=>{
+
+        (colours[model]||[]).forEach(colour=>{
+
+            add(
+                "Back Glass",
+                model+" Back Glass A++",
+                model,
+                "A++",
+                colour,
+                0
+            );
+
+            add(
+                "Housing",
+                model+" Housing A++",
+                model,
+                "A++",
+                colour,
+                0
+            );
+
+        });
+
+    });
+
+
+    /* OTHER PARTS */
+
+    models.forEach(model=>{
+
+        add(
+            "Ringer",
+            model+" Ringer",
+            model,
+            "Standard",
+            "",
+            0
+        );
+
+        add(
+            "Earpiece",
+            model+" Earpiece",
+            model,
+            "Standard",
+            "",
+            0
+        );
+
+        add(
+            "Charging Strip",
+            model+" Charging Strip",
+            model,
+            "Standard",
+            "",
+            0
+        );
+
+        add(
+            "iPhone OCA",
+            model+" OCA Glass",
+            model,
+            "OCA",
+            "",
+            0
+        );
+
+    });
+
+
+    /* ACCESSORIES */
+
+    add(
+        "Apple Accessories",
+        "Apple 20W Adapter",
+        "20W",
+        "Standard",
+        "",
+        0
+    );
+
+    add(
+        "Apple Accessories",
+        "Apple 30W Adapter",
+        "30W",
+        "Standard",
+        "",
+        0
+    );
+
+    add(
+        "Apple Accessories",
+        "Apple Cable C to C",
+        "C to C",
+        "Standard",
+        "",
+        0
+    );
+
+    add(
+        "Apple Accessories",
+        "Apple Cable C to Lightning",
+        "C to Lightning",
+        "Standard",
+        "",
+        0
+    );
+
+
+    add(
+        "Samsung Accessories",
+        "Samsung 25W Adapter",
+        "25W",
+        "Standard",
+        "",
+        0
+    );
+
+    add(
+        "Samsung Accessories",
+        "Samsung 45W Adapter",
+        "45W",
+        "Standard",
+        "",
+        0
+    );
+
+    add(
+        "Samsung Accessories",
+        "Samsung 60W Adapter",
+        "60W",
+        "Standard",
+        "",
+        0
+    );
+
+    add(
+        "Samsung Accessories",
+        "Samsung 65W Adapter",
+        "65W",
+        "Standard",
+        "",
+        0
+    );
+
+    add(
+        "Samsung Accessories",
+        "Samsung Cable",
+        "Cable",
+        "Standard",
+        "",
+        0
+    );
+
+
+    add(
+        "Falcon 530",
+        "Falcon 530",
+        "Falcon 530",
+        "Standard",
+        "",
+        0
+    );
+
+
+    return list;
+
+}
+
+
+/* =====================================================
+   LOAD PRODUCTS
+   ===================================================== */
+
+function loadProducts(){
+
+    const saved =
+    localStorage.getItem("iSparesProducts");
+
+    if(saved){
+
+        products=JSON.parse(saved);
+
+    }else{
+
+        products=initialProducts();
+
+        saveProducts();
+
+    }
+
+    renderProducts();
+    updateStats();
+
+}
+
 
 function saveProducts(){
 
@@ -1095,240 +1538,128 @@ function saveProducts(){
 }
 
 
-/* =========================================================
-   RENDER PRODUCTS
-   ========================================================= */
+/* =====================================================
+   PRODUCTS TABLE
+   ===================================================== */
 
 function renderProducts(){
 
-    const table =
-        document.getElementById(
-            "productTable"
-        );
-
     const search =
-        document.getElementById(
-            "search"
-        ).value
+    document.getElementById("search")
+    .value.toLowerCase();
+
+    const table =
+    document.getElementById("productTable");
+
+    const filtered =
+    products.filter(p=>
+
+        (
+            p.name+" "+
+            p.category+" "+
+            p.model+" "+
+            p.quality+" "+
+            p.colour
+        )
         .toLowerCase()
-        .trim();
+        .includes(search)
 
+    );
 
-    table.innerHTML = "";
+    table.innerHTML="";
 
+    if(!filtered.length){
 
-    let filtered =
-        products.filter(product => {
-
-            const text =
-
-                product.name + " " +
-                product.category + " " +
-                product.model + " " +
-                product.quality + " " +
-                product.colour;
-
-            return text
-                .toLowerCase()
-                .includes(search);
-
-        });
-
-
-    if(filtered.length === 0){
-
-        table.innerHTML = `
-
-            <tr>
-
-                <td
-                colspan="9"
-                style="
-                text-align:center;
-                padding:40px;
-                color:#777;
-                "
-                >
-
-                No products found.
-
-                <br><br>
-
-                Click
-                <b>+ Add Product</b>
-                to create one.
-
-                </td>
-
-            </tr>
-
-        `;
+        table.innerHTML=`
+        <tr>
+        <td colspan="9" class="empty">
+        No products found
+        </td>
+        </tr>`;
 
         return;
 
     }
 
 
-    filtered.forEach(product => {
+    filtered.forEach(p=>{
 
-        let stockClass =
-            "stock-good";
+        let stockClass="green";
 
-
-        if(product.stock <= 0){
-
-            stockClass =
-                "stock-out";
-
-        }
-
-        else if(product.stock <= 2){
-
-            stockClass =
-                "stock-low";
-
-        }
+        if(p.stock<=0)
+            stockClass="red";
+        else if(p.stock<=2)
+            stockClass="orange";
 
 
-        const imageHTML =
-            product.image
-
-            ?
-
-            `<img
-            src="${product.image}"
-            onerror="
-            this.style.display='none'
-            "
-            >`
-
-            :
-
-            `📦`;
+        const image =
+        convertImageUrl(p.image);
 
 
         table.innerHTML += `
 
-            <tr>
+        <tr>
 
+        <td>
 
-                <td>
+        ${
+            image
+            ?
+            `<img
+            class="product-img"
+            src="${escapeHTML(image)}"
+            onerror="this.src='';this.style.background='#eee'">`
+            :
+            `<div class="product-img"></div>`
+        }
 
-                    <div
-                    class="product-img"
-                    >
+        </td>
 
-                        ${imageHTML}
+        <td>
+        <b>${escapeHTML(p.name)}</b>
+        </td>
 
-                    </div>
+        <td>${escapeHTML(p.category)}</td>
 
-                </td>
+        <td>${escapeHTML(p.model||"-")}</td>
 
+        <td>${escapeHTML(p.quality||"-")}</td>
 
-                <td>
+        <td>${escapeHTML(p.colour||"-")}</td>
 
-                    <b>
-                    ${product.name}
-                    </b>
+        <td>
+        ₹${Number(p.price||0).toLocaleString("en-IN")}
+        </td>
 
-                </td>
+        <td>
 
+        <span class="badge ${stockClass}">
+        ${p.stock}
+        </span>
 
-                <td>
+        </td>
 
-                    ${product.category}
+        <td>
 
-                </td>
+        <div class="actions">
 
+        <button
+        class="edit"
+        onclick="editProduct('${p.id}')">
+        Edit
+        </button>
 
-                <td>
+        <button
+        class="delete"
+        onclick="deleteProduct('${p.id}')">
+        Delete
+        </button>
 
-                    ${product.model || "-"}
+        </div>
 
-                </td>
+        </td>
 
-
-                <td>
-
-                    ${product.quality || "-"}
-
-                </td>
-
-
-                <td>
-
-                    ${product.colour || "-"}
-
-                </td>
-
-
-                <td>
-
-                    ₹${Number(
-                        product.price || 0
-                    ).toLocaleString("en-IN")}
-
-                </td>
-
-
-                <td>
-
-                    <span
-                    class="${stockClass}"
-                    >
-
-                    ${product.stock}
-
-                    </span>
-
-                </td>
-
-
-                <td>
-
-                    <div
-                    class="action-buttons"
-                    >
-
-                        <button
-
-                        class="edit"
-
-                        onclick="
-                        editProduct(
-                            ${product.id}
-                        )
-                        "
-
-                        >
-
-                        Edit
-
-                        </button>
-
-
-                        <button
-
-                        class="delete"
-
-                        onclick="
-                        deleteProduct(
-                            ${product.id}
-                        )
-                        "
-
-                        >
-
-                        Delete
-
-                        </button>
-
-                    </div>
-
-                </td>
-
-
-            </tr>
+        </tr>
 
         `;
 
@@ -1337,448 +1668,136 @@ function renderProducts(){
 }
 
 
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
+/* =====================================================
+   PRODUCT MODAL
+   ===================================================== */
 
-function updateDashboard(){
+function openProduct(){
 
-    document.getElementById(
-        "totalProducts"
-    ).innerText =
-        products.length;
+    editingId=null;
 
+    document.getElementById("modalTitle")
+    .innerText="Add Product";
 
-    const totalStock =
-        products.reduce(
+    pName.value="";
+    pCategory.value="Displays";
+    pModel.value="";
+    pQuality.value="";
+    pColour.value="";
+    pPrice.value="";
+    pStock.value="2";
+    pImage.value="";
+    pDescription.value="";
 
-            (total,product) =>
+    document.getElementById("imagePreview")
+    .style.display="none";
 
-                total +
-                Number(
-                    product.stock || 0
-                ),
-
-            0
-
-        );
-
-
-    document.getElementById(
-        "totalStock"
-    ).innerText =
-        totalStock;
-
-
-    const lowStock =
-        products.filter(
-            product =>
-                Number(
-                    product.stock || 0
-                ) > 0 &&
-
-                Number(
-                    product.stock || 0
-                ) <= 2
-        ).length;
-
-
-    document.getElementById(
-        "lowStock"
-    ).innerText =
-        lowStock;
-
-
-    const outStock =
-        products.filter(
-            product =>
-                Number(
-                    product.stock || 0
-                ) <= 0
-        ).length;
-
-
-    document.getElementById(
-        "outStock"
-    ).innerText =
-        outStock;
+    document.getElementById("productModal")
+    .classList.add("show");
 
 }
 
-
-/* =========================================================
-   OPEN ADD PRODUCT
-   ========================================================= */
-
-function openAddProduct(){
-
-    editingProductId = null;
-
-
-    document.getElementById(
-        "modalTitle"
-    ).innerText =
-        "Add Product";
-
-
-    clearForm();
-
-
-    document.getElementById(
-        "productModal"
-    ).classList.add(
-        "active"
-    );
-
-}
-
-
-/* =========================================================
-   CLEAR FORM
-   ========================================================= */
-
-function clearForm(){
-
-    document.getElementById(
-        "productName"
-    ).value = "";
-
-
-    document.getElementById(
-        "productCategory"
-    ).value =
-        "Displays";
-
-
-    document.getElementById(
-        "productModel"
-    ).value = "";
-
-
-    document.getElementById(
-        "productQuality"
-    ).value = "";
-
-
-    document.getElementById(
-        "productColour"
-    ).value = "";
-
-
-    document.getElementById(
-        "productPrice"
-    ).value = "";
-
-
-    document.getElementById(
-        "productStock"
-    ).value = "2";
-
-
-    document.getElementById(
-        "productImage"
-    ).value = "";
-
-
-    document.getElementById(
-        "productDescription"
-    ).value = "";
-
-
-    document.getElementById(
-        "imagePreview"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "previewText"
-    ).style.display =
-        "block";
-
-}
-
-
-/* =========================================================
-   EDIT PRODUCT
-   ========================================================= */
 
 function editProduct(id){
 
-    const product =
-        products.find(
-            item =>
-                item.id === id
-        );
+    const p =
+    products.find(x=>x.id===id);
+
+    if(!p)return;
+
+    editingId=id;
+
+    document.getElementById("modalTitle")
+    .innerText="Edit Product";
+
+    pName.value=p.name||"";
+    pCategory.value=p.category||"Displays";
+    pModel.value=p.model||"";
+    pQuality.value=p.quality||"";
+    pColour.value=p.colour||"";
+    pPrice.value=p.price||0;
+    pStock.value=p.stock||0;
+    pImage.value=p.image||"";
+    pDescription.value=p.description||"";
+
+    previewProductImage();
+
+    document.getElementById("productModal")
+    .classList.add("show");
+
+}
 
 
-    if(!product){
+function previewProductImage(){
 
+    const url =
+    convertImageUrl(pImage.value);
+
+    const img =
+    document.getElementById("imagePreview");
+
+    if(!url){
+
+        img.style.display="none";
         return;
 
     }
 
-
-    editingProductId = id;
-
-
-    document.getElementById(
-        "modalTitle"
-    ).innerText =
-        "Edit Product";
-
-
-    document.getElementById(
-        "productName"
-    ).value =
-        product.name || "";
-
-
-    document.getElementById(
-        "productCategory"
-    ).value =
-        product.category || "Displays";
-
-
-    document.getElementById(
-        "productModel"
-    ).value =
-        product.model || "";
-
-
-    document.getElementById(
-        "productQuality"
-    ).value =
-        product.quality || "";
-
-
-    document.getElementById(
-        "productColour"
-    ).value =
-        product.colour || "";
-
-
-    document.getElementById(
-        "productPrice"
-    ).value =
-        product.price || "";
-
-
-    document.getElementById(
-        "productStock"
-    ).value =
-        product.stock || 0;
-
-
-    document.getElementById(
-        "productImage"
-    ).value =
-        product.image || "";
-
-
-    document.getElementById(
-        "productDescription"
-    ).value =
-        product.description || "";
-
-
-    previewImage();
-
-
-    document.getElementById(
-        "productModal"
-    ).classList.add(
-        "active"
-    );
+    img.src=url;
+    img.style.display="block";
 
 }
 
-
-/* =========================================================
-   SAVE PRODUCT
-   ========================================================= */
 
 function saveProduct(){
 
     const name =
-        document.getElementById(
-            "productName"
-        ).value.trim();
-
-
-    const category =
-        document.getElementById(
-            "productCategory"
-        ).value;
-
-
-    const model =
-        document.getElementById(
-            "productModel"
-        ).value.trim();
-
-
-    const quality =
-        document.getElementById(
-            "productQuality"
-        ).value.trim();
-
-
-    const colour =
-        document.getElementById(
-            "productColour"
-        ).value.trim();
-
-
-    const price =
-        Number(
-            document.getElementById(
-                "productPrice"
-            ).value
-        );
-
-
-    const stock =
-        Number(
-            document.getElementById(
-                "productStock"
-            ).value
-        );
-
-
-    const image =
-        document.getElementById(
-            "productImage"
-        ).value.trim();
-
-
-    const description =
-        document.getElementById(
-            "productDescription"
-        ).value.trim();
-
+    pName.value.trim();
 
     if(!name){
 
-        alert(
-            "Please enter a product name."
-        );
-
+        alert("Please enter product name.");
         return;
 
     }
 
 
-    if(price < 0){
+    const data={
 
-        alert(
-            "Price cannot be negative."
-        );
+        name,
 
-        return;
+        category:pCategory.value,
 
-    }
+        model:pModel.value.trim(),
 
+        quality:pQuality.value.trim(),
 
-    if(stock < 0){
+        colour:pColour.value.trim(),
 
-        alert(
-            "Stock cannot be negative."
-        );
+        price:Number(pPrice.value)||0,
 
-        return;
+        stock:Number(pStock.value)||0,
 
-    }
+        image:pImage.value.trim(),
 
+        description:pDescription.value.trim()
 
-    /* EDIT EXISTING */
-
-    if(editingProductId !== null){
-
-        const product =
-            products.find(
-                item =>
-                    item.id ===
-                    editingProductId
-            );
+    };
 
 
-        if(product){
+    if(editingId){
 
-            product.name =
-                name;
+        const p =
+        products.find(x=>x.id===editingId);
 
-            product.category =
-                category;
+        if(p)Object.assign(p,data);
 
-            product.model =
-                model;
+    }else{
 
-            product.quality =
-                quality;
+        data.id=
+        "product-"+Date.now();
 
-            product.colour =
-                colour;
-
-            product.price =
-                price;
-
-            product.stock =
-                stock;
-
-            product.image =
-                image;
-
-            product.description =
-                description;
-
-        }
-
-    }
-
-
-    /* ADD NEW */
-
-    else{
-
-        const newProduct = {
-
-            id:
-                Date.now(),
-
-            name:
-                name,
-
-            category:
-                category,
-
-            model:
-                model,
-
-            quality:
-                quality,
-
-            colour:
-                colour,
-
-            price:
-                price,
-
-            stock:
-                stock,
-
-            image:
-                image,
-
-            description:
-                description
-
-        };
-
-
-        products.push(
-            newProduct
-        );
+        products.push(data);
 
     }
 
@@ -1787,132 +1806,423 @@ function saveProduct(){
 
     renderProducts();
 
-    updateDashboard();
+    updateStats();
 
-    closeProductModal();
+    closeProduct();
 
 }
 
-
-/* =========================================================
-   DELETE PRODUCT
-   ========================================================= */
 
 function deleteProduct(id){
 
-    const product =
-        products.find(
-            item =>
-                item.id === id
-        );
+    const p=
+    products.find(x=>x.id===id);
 
+    if(!p)return;
 
-    if(!product){
+    if(!confirm(
+        "Delete "+p.name+"?"
+    ))return;
 
-        return;
-
-    }
-
-
-    const confirmed =
-        confirm(
-
-            `Delete "${product.name}"?`
-
-        );
-
-
-    if(!confirmed){
-
-        return;
-
-    }
-
-
-    products =
-        products.filter(
-            item =>
-                item.id !== id
-        );
-
+    products=
+    products.filter(x=>x.id!==id);
 
     saveProducts();
 
     renderProducts();
 
-    updateDashboard();
+    updateStats();
 
 }
 
 
-/* =========================================================
-   CLOSE MODAL
-   ========================================================= */
+function closeProduct(){
 
-function closeProductModal(){
+    document.getElementById("productModal")
+    .classList.remove("show");
 
-    document.getElementById(
-        "productModal"
-    ).classList.remove(
-        "active"
+}
+
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+
+function openSection(name,button){
+
+    document
+    .querySelectorAll(".section")
+    .forEach(x=>x.classList.remove("active"));
+
+    document
+    .getElementById(name)
+    .classList.add("active");
+
+    document
+    .querySelectorAll(".nav button")
+    .forEach(x=>x.classList.remove("active"));
+
+    button.classList.add("active");
+
+    if(name==="categories"){
+
+        renderCategories();
+        renderQualities();
+
+    }
+
+    if(name==="orders")
+        renderOrders();
+
+    if(name==="customers")
+        renderCustomers();
+
+}
+
+
+/* =====================================================
+   ORDERS
+   ===================================================== */
+
+function renderOrders(){
+
+    const box=
+    document.getElementById("ordersList");
+
+    box.innerHTML="";
+
+    if(!orders.length){
+
+        box.innerHTML=
+        `<div class="empty">
+        No orders yet.
+        </div>`;
+
+        return;
+
+    }
+
+
+    orders.forEach(o=>{
+
+        box.innerHTML += `
+
+        <div class="order">
+
+        <div class="order-head">
+
+        <div>
+
+        <b>Order #${escapeHTML(o.id)}</b>
+
+        <br>
+
+        ${escapeHTML(o.name||"Customer")}
+
+        <br>
+
+        ${escapeHTML(o.phone||"")}
+
+        </div>
+
+        <div>
+
+        Payment:
+
+        <select
+        onchange="changePayment('${o.id}',this.value)">
+
+        ${paymentOptions(o.payment)}
+
+        </select>
+
+        <br><br>
+
+        Delivery:
+
+        <select
+        onchange="changeDelivery('${o.id}',this.value)">
+
+        ${deliveryOptions(o.delivery)}
+
+        </select>
+
+        </div>
+
+        </div>
+
+
+        <div class="address">
+
+        <b>Delivery Address</b>
+
+        <br><br>
+
+        ${escapeHTML(o.address||"-")}
+
+        <br>
+
+        ${escapeHTML(o.city||"")}
+        ${escapeHTML(o.state||"")}
+        ${escapeHTML(o.pin||"")}
+
+        </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+function paymentOptions(current){
+
+    return [
+
+        ["pending","Pending"],
+        ["paid","Paid"],
+        ["failed","Failed"],
+        ["refunded","Refunded"]
+
+    ].map(x=>
+
+        `<option value="${x[0]}"
+        ${current===x[0]?"selected":""}>
+        ${x[1]}
+        </option>`
+
+    ).join("");
+
+}
+
+
+function deliveryOptions(current){
+
+    return [
+
+        ["pending","Pending"],
+        ["confirmed","Confirmed"],
+        ["packed","Packed"],
+        ["shipped","Shipped"],
+        ["delivered","Delivered"],
+        ["cancelled","Cancelled"]
+
+    ].map(x=>
+
+        `<option value="${x[0]}"
+        ${current===x[0]?"selected":""}>
+        ${x[1]}
+        </option>`
+
+    ).join("");
+
+}
+
+
+function changePayment(id,value){
+
+    const o=orders.find(x=>x.id===id);
+
+    if(o){
+
+        o.payment=value;
+
+        saveOrders();
+        updateStats();
+
+    }
+
+}
+
+
+function changeDelivery(id,value){
+
+    const o=orders.find(x=>x.id===id);
+
+    if(o){
+
+        o.delivery=value;
+
+        saveOrders();
+        updateStats();
+
+    }
+
+}
+
+
+function saveOrders(){
+
+    localStorage.setItem(
+        "iSparesOrders",
+        JSON.stringify(orders)
     );
 
 }
 
 
-/* =========================================================
-   IMAGE PREVIEW
-   ========================================================= */
+/* =====================================================
+   CUSTOMERS
+   ===================================================== */
 
-function previewImage(){
+function renderCustomers(){
 
-    const url =
-        document.getElementById(
-            "productImage"
-        ).value.trim();
+    const table=
+    document.getElementById("customerTable");
+
+    const search=
+    document.getElementById("customerSearch")
+    .value.toLowerCase();
+
+    const filtered=
+    customers.filter(c=>
+
+        (
+            c.name+" "+
+            c.phone+" "+
+            c.city+" "+
+            c.state
+        )
+        .toLowerCase()
+        .includes(search)
+
+    );
+
+    table.innerHTML="";
+
+    filtered.forEach(c=>{
+
+        table.innerHTML+=`
+
+        <tr>
+
+        <td>${escapeHTML(c.name||"-")}</td>
+
+        <td>${escapeHTML(c.phone||"-")}</td>
+
+        <td>${escapeHTML(c.address||"-")}</td>
+
+        <td>${escapeHTML(c.city||"-")}</td>
+
+        <td>${escapeHTML(c.state||"-")}</td>
+
+        <td>${escapeHTML(c.pin||"-")}</td>
+
+        </tr>
+
+        `;
+
+    });
 
 
-    const image =
-        document.getElementById(
-            "imagePreview"
-        );
+    if(!filtered.length){
 
-
-    const text =
-        document.getElementById(
-            "previewText"
-        );
-
-
-    if(!url){
-
-        image.style.display =
-            "none";
-
-        text.style.display =
-            "block";
-
-        return;
+        table.innerHTML=`
+        <tr>
+        <td colspan="6" class="empty">
+        No customers yet
+        </td>
+        </tr>`;
 
     }
-
-
-    image.src = url;
-
-    image.style.display =
-        "block";
-
-    text.style.display =
-        "none";
 
 }
 
 
-/* =========================================================
-   START ADMIN
-   ========================================================= */
+/* =====================================================
+   STATS
+   ===================================================== */
+
+function updateStats(){
+
+    document.getElementById("totalProducts")
+    .innerText=products.length;
+
+    document.getElementById("totalStock")
+    .innerText=
+    products.reduce(
+        (a,b)=>a+Number(b.stock||0),0
+    );
+
+    document.getElementById("totalOrders")
+    .innerText=orders.length;
+
+    document.getElementById("pendingPayment")
+    .innerText=
+    orders.filter(
+        x=>x.payment==="pending"
+    ).length;
+
+    document.getElementById("pendingDelivery")
+    .innerText=
+    orders.filter(
+        x=>x.delivery!=="delivered" &&
+        x.delivery!=="cancelled"
+    ).length;
+
+}
+
+
+/* =====================================================
+   ADD CATEGORY
+   ===================================================== */
+
+function addCategory(){
+
+    const name=
+    prompt("Enter new category name:");
+
+    if(!name)return;
+
+    const data=getCategoryImages();
+
+    if(data[name]===undefined)
+        data[name]="";
+
+    saveCategoryImages(data);
+
+    renderCategories();
+
+}
+
+
+/* =====================================================
+   HTML SAFETY
+   ===================================================== */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+const savedOrders=
+localStorage.getItem("iSparesOrders");
+
+if(savedOrders)
+    orders=JSON.parse(savedOrders);
 
 loadProducts();
-  </script>
+
+renderCategories();
+
+renderQualities();
+
+updateStats();
+
+</script>
+
 </body>
 </html>
