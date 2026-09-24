@@ -1,1 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>I SPARES ADMIN</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+    background:#f5f5f7;
+    color:#111;
+}
+
+
+/* HEADER */
+
+header{
+
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:#000;
+    color:#fff;
+
+    padding:16px 5%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+.logo{
+
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:3px;
+
+}
+
+.admin-label{
+
+    font-size:12px;
+    color:#aaa;
+    letter-spacing:1px;
+
+}
+
+
+/* LAYOUT */
+
+.container{
+
+    max-width:1200px;
+    margin:auto;
+
+    padding:30px 5%;
+
+}
+
+
+/* DASHBOARD */
+
+.dashboard{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+
+    gap:15px;
+
+    margin-bottom:30px;
+
+}
+
+
+.stat{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    border:1px solid #e5e5e5;
+
+}
+
+
+.stat-title{
+
+    color:#777;
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+}
+
+
+.stat-number{
+
+    font-size:30px;
+
+    font-weight:800;
+
+}
+
+
+/* MAIN CARD */
+
+.card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    border:1px solid #e5e5e5;
+
+    margin-bottom:25px;
+
+}
+
+
+/* TOP BAR */
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.topbar h1{
+
+    font-size:28px;
+
+}
+
+
+.search{
+
+    padding:11px 15px;
+
+    border:1px solid #ddd;
+
+    border-radius:25px;
+
+    width:250px;
+
+    outline:none;
+
+}
+
+
+/* BUTTONS */
+
+button{
+
+    border:none;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+
+.primary{
+
+    background:#000;
+
+    color:#fff;
+
+    padding:11px 18px;
+
+    border-radius:10px;
+
+}
+
+
+.secondary{
+
+    background:#eee;
+
+    color:#111;
+
+    padding:10px 16px;
+
+    border-radius:10px;
+
+}
+
+
+/* PRODUCT TABLE */
+
+.table-wrapper{
+
+    overflow-x:auto;
+
+}
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:850px;
+
+}
+
+
+th{
+
+    text-align:left;
+
+    background:#f5f5f7;
+
+    padding:13px;
+
+    font-size:13px;
+
+}
+
+
+td{
+
+    padding:13px;
+
+    border-bottom:1px solid #eee;
+
+    font-size:14px;
+
+    vertical-align:middle;
+
+}
+
+
+.product-img{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:10px;
+
+    background:#eee;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+}
+
+
+.product-img img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:contain;
+
+}
+
+
+.stock-good{
+
+    color:#168044;
+
+    font-weight:bold;
+
+}
+
+
+.stock-low{
+
+    color:#d98200;
+
+    font-weight:bold;
+
+}
+
+
+.stock-out{
+
+    color:#d00;
+
+    font-weight:bold;
+
+}
+
+
+.action-buttons{
+
+    display:flex;
+
+    gap:7px;
+
+}
+
+
+.edit{
+
+    background:#eee;
+
+    padding:7px 11px;
+
+    border-radius:7px;
+
+}
+
+
+.delete{
+
+    background:#ffe5e5;
+
+    color:#d00;
+
+    padding:7px 11px;
+
+    border-radius:7px;
+
+}
+
+
+/* MODAL */
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:#0008;
+
+    z-index:500;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+}
+
+
+.modal.active{
+
+    display:flex;
+
+}
+
+
+.modal-box{
+
+    width:600px;
+
+    max-width:100%;
+
+    max-height:90vh;
+
+    overflow:auto;
+
+    background:#fff;
+
+    border-radius:22px;
+
+    padding:25px;
+
+}
+
+
+.modal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+
+.close{
+
+    width:35px;
+
+    height:35px;
+
+    border-radius:50%;
+
+    background:#eee;
+
+}
+
+
+.field{
+
+    margin-bottom:15px;
+
+}
+
+
+.field label{
+
+    display:block;
+
+    font-size:13px;
+
+    color:#555;
+
+    margin-bottom:6px;
+
+}
+
+
+.field input,
+
+.field textarea,
+
+.field select{
+
+    width:100%;
+
+    padding:11px;
+
+    border:1px solid #ddd;
+
+    border-radius:9px;
+
+    outline:none;
+
+    font-family:inherit;
+
+}
+
+
+.field textarea{
+
+    min-height:100px;
+
+    resize:vertical;
+
+}
+
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:12px;
+
+}
+
+
+.preview{
+
+    width:120px;
+
+    height:120px;
+
+    background:#f1f1f1;
+
+    border-radius:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+    margin-bottom:10px;
+
+}
+
+
+.preview img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:contain;
+
+}
+
+
+.modal-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+
+.modal-buttons button{
+
+    flex:1;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:650px){
+
+    .container{
+
+        padding:20px 12px;
+
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .search{
+
+        width:100%;
+
+    }
+
+    .topbar{
+
+        align-items:stretch;
+
+    }
+
+    .topbar button{
+
+        width:100%;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="logo">
+I SPARES
+</div>
+
+<div class="admin-label">
+ADMIN PANEL
+</div>
+
+</header>
+
+
+<main class="container">
+
+
+<!-- DASHBOARD -->
+
+<div class="dashboard">
+
+
+<div class="stat">
+
+<div class="stat-title">
+TOTAL PRODUCTS
+</div>
+
+<div
+class="stat-number"
+id="totalProducts">
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-title">
+TOTAL STOCK
+</div>
+
+<div
+class="stat-number"
+id="totalStock">
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-title">
+LOW STOCK
+</div>
+
+<div
+class="stat-number"
+id="lowStock">
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-title">
+OUT OF STOCK
+</div>
+
+<div
+class="stat-number"
+id="outStock">
+0
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- PRODUCTS -->
+
+<div class="card">
+
+
+<div class="topbar">
+
+<h1>
+Products
+</h1>
+
+
+<button
+class="primary"
+onclick="openAddProduct()"
+>
++ Add Product
+</button>
+
+
+</div>
+
+
+<input
+
+class="search"
+
+id="search"
+
+placeholder="Search products..."
+
+oninput="renderProducts()"
+
+>
+
+
+<br><br>
+
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Photo
+</th>
+
+<th>
+Product
+</th>
+
+<th>
+Category
+</th>
+
+<th>
+Model
+</th>
+
+<th>
+Quality
+</th>
+
+<th>
+Colour
+</th>
+
+<th>
+Price
+</th>
+
+<th>
+Stock
+</th>
+
+<th>
+Actions
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody
+id="productTable">
+</tbody>
+
+</table>
+
+</div>
+
+
+</div>
+
+
+</main>
+
+
+<!-- ADD / EDIT MODAL -->
+
+<div
+class="modal"
+id="productModal"
+>
+
+
+<div class="modal-box">
+
+
+<div class="modal-header">
+
+<h2 id="modalTitle">
+Add Product
+</h2>
+
+
+<button
+class="close"
+onclick="closeProductModal()"
+>
+✕
+</button>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Product Name
+</label>
+
+<input
+id="productName"
+placeholder="Example: iPhone 13 Pro Max Display"
+>
+
+</div>
+
+
+<div class="form-grid">
+
+
+<div class="field">
+
+<label>
+Category
+</label>
+
+<select id="productCategory">
+
+<option>
+Displays
+</option>
+
+<option>
+Batteries
+</option>
+
+<option>
+Back Glass
+</option>
+
+<option>
+Housing
+</option>
+
+<option>
+Ringer
+</option>
+
+<option>
+Earpiece
+</option>
+
+<option>
+Charging Strip
+</option>
+
+<option>
+iPad Touch
+</option>
+
+<option>
+Watch Touch
+</option>
+
+<option>
+Watch OCA
+</option>
+
+<option>
+iPhone OCA
+</option>
+
+<option>
+Apple Accessories
+</option>
+
+<option>
+Samsung Accessories
+</option>
+
+<option>
+Falcon 530
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Model
+</label>
+
+<input
+id="productModel"
+placeholder="Example: iPhone 13 Pro Max"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Quality
+</label>
+
+<input
+id="productQuality"
+placeholder="Example: DD / A++ / Genuine"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Colour
+</label>
+
+<input
+id="productColour"
+placeholder="Example: Natural Titanium"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Price ₹
+</label>
+
+<input
+type="number"
+id="productPrice"
+placeholder="2500"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Stock
+</label>
+
+<input
+type="number"
+id="productStock"
+placeholder="2"
+>
+
+</div>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Product Image URL
+</label>
+
+<input
+id="productImage"
+placeholder="https://..."
+oninput="previewImage()"
+>
+
+</div>
+
+
+<div class="preview">
+
+<img
+id="imagePreview"
+style="display:none"
+>
+
+<span id="previewText">
+No Image
+</span>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Description
+</label>
+
+<textarea
+id="productDescription"
+placeholder="Product description..."
+></textarea>
+
+</div>
+
+
+<div class="modal-buttons">
+
+
+<button
+class="secondary"
+onclick="closeProductModal()"
+>
+Cancel
+</button>
+
+
+<button
+class="primary"
+onclick="saveProduct()"
+>
+Save Product
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script>
+  /* =========================================================
+   I SPARES ADMIN — PRODUCT DATABASE
+   ========================================================= */
+
+let products = [];
+
+let editingProductId = null;
+
+
+/* =========================================================
+   LOAD PRODUCTS
+   ========================================================= */
+
+function loadProducts(){
+
+    const saved =
+        localStorage.getItem("iSparesProducts");
+
+    if(saved){
+
+        products = JSON.parse(saved);
+
+    }
+
+    else{
+
+        products = [];
+
+    }
+
+    renderProducts();
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   SAVE PRODUCTS
+   ========================================================= */
+
+function saveProducts(){
+
+    localStorage.setItem(
+        "iSparesProducts",
+        JSON.stringify(products)
+    );
+
+}
+
+
+/* =========================================================
+   RENDER PRODUCTS
+   ========================================================= */
+
+function renderProducts(){
+
+    const table =
+        document.getElementById(
+            "productTable"
+        );
+
+    const search =
+        document.getElementById(
+            "search"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    table.innerHTML = "";
+
+
+    let filtered =
+        products.filter(product => {
+
+            const text =
+
+                product.name + " " +
+                product.category + " " +
+                product.model + " " +
+                product.quality + " " +
+                product.colour;
+
+            return text
+                .toLowerCase()
+                .includes(search);
+
+        });
+
+
+    if(filtered.length === 0){
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td
+                colspan="9"
+                style="
+                text-align:center;
+                padding:40px;
+                color:#777;
+                "
+                >
+
+                No products found.
+
+                <br><br>
+
+                Click
+                <b>+ Add Product</b>
+                to create one.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    filtered.forEach(product => {
+
+        let stockClass =
+            "stock-good";
+
+
+        if(product.stock <= 0){
+
+            stockClass =
+                "stock-out";
+
+        }
+
+        else if(product.stock <= 2){
+
+            stockClass =
+                "stock-low";
+
+        }
+
+
+        const imageHTML =
+            product.image
+
+            ?
+
+            `<img
+            src="${product.image}"
+            onerror="
+            this.style.display='none'
+            "
+            >`
+
+            :
+
+            `📦`;
+
+
+        table.innerHTML += `
+
+            <tr>
+
+
+                <td>
+
+                    <div
+                    class="product-img"
+                    >
+
+                        ${imageHTML}
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <b>
+                    ${product.name}
+                    </b>
+
+                </td>
+
+
+                <td>
+
+                    ${product.category}
+
+                </td>
+
+
+                <td>
+
+                    ${product.model || "-"}
+
+                </td>
+
+
+                <td>
+
+                    ${product.quality || "-"}
+
+                </td>
+
+
+                <td>
+
+                    ${product.colour || "-"}
+
+                </td>
+
+
+                <td>
+
+                    ₹${Number(
+                        product.price || 0
+                    ).toLocaleString("en-IN")}
+
+                </td>
+
+
+                <td>
+
+                    <span
+                    class="${stockClass}"
+                    >
+
+                    ${product.stock}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <div
+                    class="action-buttons"
+                    >
+
+                        <button
+
+                        class="edit"
+
+                        onclick="
+                        editProduct(
+                            ${product.id}
+                        )
+                        "
+
+                        >
+
+                        Edit
+
+                        </button>
+
+
+                        <button
+
+                        class="delete"
+
+                        onclick="
+                        deleteProduct(
+                            ${product.id}
+                        )
+                        "
+
+                        >
+
+                        Delete
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+function updateDashboard(){
+
+    document.getElementById(
+        "totalProducts"
+    ).innerText =
+        products.length;
+
+
+    const totalStock =
+        products.reduce(
+
+            (total,product) =>
+
+                total +
+                Number(
+                    product.stock || 0
+                ),
+
+            0
+
+        );
+
+
+    document.getElementById(
+        "totalStock"
+    ).innerText =
+        totalStock;
+
+
+    const lowStock =
+        products.filter(
+            product =>
+                Number(
+                    product.stock || 0
+                ) > 0 &&
+
+                Number(
+                    product.stock || 0
+                ) <= 2
+        ).length;
+
+
+    document.getElementById(
+        "lowStock"
+    ).innerText =
+        lowStock;
+
+
+    const outStock =
+        products.filter(
+            product =>
+                Number(
+                    product.stock || 0
+                ) <= 0
+        ).length;
+
+
+    document.getElementById(
+        "outStock"
+    ).innerText =
+        outStock;
+
+}
+
+
+/* =========================================================
+   OPEN ADD PRODUCT
+   ========================================================= */
+
+function openAddProduct(){
+
+    editingProductId = null;
+
+
+    document.getElementById(
+        "modalTitle"
+    ).innerText =
+        "Add Product";
+
+
+    clearForm();
+
+
+    document.getElementById(
+        "productModal"
+    ).classList.add(
+        "active"
+    );
+
+}
+
+
+/* =========================================================
+   CLEAR FORM
+   ========================================================= */
+
+function clearForm(){
+
+    document.getElementById(
+        "productName"
+    ).value = "";
+
+
+    document.getElementById(
+        "productCategory"
+    ).value =
+        "Displays";
+
+
+    document.getElementById(
+        "productModel"
+    ).value = "";
+
+
+    document.getElementById(
+        "productQuality"
+    ).value = "";
+
+
+    document.getElementById(
+        "productColour"
+    ).value = "";
+
+
+    document.getElementById(
+        "productPrice"
+    ).value = "";
+
+
+    document.getElementById(
+        "productStock"
+    ).value = "2";
+
+
+    document.getElementById(
+        "productImage"
+    ).value = "";
+
+
+    document.getElementById(
+        "productDescription"
+    ).value = "";
+
+
+    document.getElementById(
+        "imagePreview"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "previewText"
+    ).style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   EDIT PRODUCT
+   ========================================================= */
+
+function editProduct(id){
+
+    const product =
+        products.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!product){
+
+        return;
+
+    }
+
+
+    editingProductId = id;
+
+
+    document.getElementById(
+        "modalTitle"
+    ).innerText =
+        "Edit Product";
+
+
+    document.getElementById(
+        "productName"
+    ).value =
+        product.name || "";
+
+
+    document.getElementById(
+        "productCategory"
+    ).value =
+        product.category || "Displays";
+
+
+    document.getElementById(
+        "productModel"
+    ).value =
+        product.model || "";
+
+
+    document.getElementById(
+        "productQuality"
+    ).value =
+        product.quality || "";
+
+
+    document.getElementById(
+        "productColour"
+    ).value =
+        product.colour || "";
+
+
+    document.getElementById(
+        "productPrice"
+    ).value =
+        product.price || "";
+
+
+    document.getElementById(
+        "productStock"
+    ).value =
+        product.stock || 0;
+
+
+    document.getElementById(
+        "productImage"
+    ).value =
+        product.image || "";
+
+
+    document.getElementById(
+        "productDescription"
+    ).value =
+        product.description || "";
+
+
+    previewImage();
+
+
+    document.getElementById(
+        "productModal"
+    ).classList.add(
+        "active"
+    );
+
+}
+
+
+/* =========================================================
+   SAVE PRODUCT
+   ========================================================= */
+
+function saveProduct(){
+
+    const name =
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
+
+    const category =
+        document.getElementById(
+            "productCategory"
+        ).value;
+
+
+    const model =
+        document.getElementById(
+            "productModel"
+        ).value.trim();
+
+
+    const quality =
+        document.getElementById(
+            "productQuality"
+        ).value.trim();
+
+
+    const colour =
+        document.getElementById(
+            "productColour"
+        ).value.trim();
+
+
+    const price =
+        Number(
+            document.getElementById(
+                "productPrice"
+            ).value
+        );
+
+
+    const stock =
+        Number(
+            document.getElementById(
+                "productStock"
+            ).value
+        );
+
+
+    const image =
+        document.getElementById(
+            "productImage"
+        ).value.trim();
+
+
+    const description =
+        document.getElementById(
+            "productDescription"
+        ).value.trim();
+
+
+    if(!name){
+
+        alert(
+            "Please enter a product name."
+        );
+
+        return;
+
+    }
+
+
+    if(price < 0){
+
+        alert(
+            "Price cannot be negative."
+        );
+
+        return;
+
+    }
+
+
+    if(stock < 0){
+
+        alert(
+            "Stock cannot be negative."
+        );
+
+        return;
+
+    }
+
+
+    /* EDIT EXISTING */
+
+    if(editingProductId !== null){
+
+        const product =
+            products.find(
+                item =>
+                    item.id ===
+                    editingProductId
+            );
+
+
+        if(product){
+
+            product.name =
+                name;
+
+            product.category =
+                category;
+
+            product.model =
+                model;
+
+            product.quality =
+                quality;
+
+            product.colour =
+                colour;
+
+            product.price =
+                price;
+
+            product.stock =
+                stock;
+
+            product.image =
+                image;
+
+            product.description =
+                description;
+
+        }
+
+    }
+
+
+    /* ADD NEW */
+
+    else{
+
+        const newProduct = {
+
+            id:
+                Date.now(),
+
+            name:
+                name,
+
+            category:
+                category,
+
+            model:
+                model,
+
+            quality:
+                quality,
+
+            colour:
+                colour,
+
+            price:
+                price,
+
+            stock:
+                stock,
+
+            image:
+                image,
+
+            description:
+                description
+
+        };
+
+
+        products.push(
+            newProduct
+        );
+
+    }
+
+
+    saveProducts();
+
+    renderProducts();
+
+    updateDashboard();
+
+    closeProductModal();
+
+}
+
+
+/* =========================================================
+   DELETE PRODUCT
+   ========================================================= */
+
+function deleteProduct(id){
+
+    const product =
+        products.find(
+            item =>
+                item.id === id
+        );
+
+
+    if(!product){
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+
+            `Delete "${product.name}"?`
+
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    products =
+        products.filter(
+            item =>
+                item.id !== id
+        );
+
+
+    saveProducts();
+
+    renderProducts();
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+   ========================================================= */
+
+function closeProductModal(){
+
+    document.getElementById(
+        "productModal"
+    ).classList.remove(
+        "active"
+    );
+
+}
+
+
+/* =========================================================
+   IMAGE PREVIEW
+   ========================================================= */
+
+function previewImage(){
+
+    const url =
+        document.getElementById(
+            "productImage"
+        ).value.trim();
+
+
+    const image =
+        document.getElementById(
+            "imagePreview"
+        );
+
+
+    const text =
+        document.getElementById(
+            "previewText"
+        );
+
+
+    if(!url){
+
+        image.style.display =
+            "none";
+
+        text.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    image.src = url;
+
+    image.style.display =
+        "block";
+
+    text.style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   START ADMIN
+   ========================================================= */
+
+loadProducts();
+  </script>
+</body>
+</html>
